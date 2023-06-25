@@ -10,14 +10,14 @@ MODEL_PATH = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 MODEL = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
 
 
-def tokenizer():
+def get_tokenizer():
     """tokenizer function"""
 
     tokenize = AutoTokenizer.from_pretrained(MODEL_PATH)
     return tokenize
 
 
-def configuration():
+def get_configuration():
     """configuration function"""
 
     config = AutoConfig.from_pretrained(MODEL_PATH)
@@ -30,9 +30,9 @@ def prediction_pipeline(text: str) -> dict:
     sentiment_scores = []
     labels = []
 
-    tokenizer = tokenizer()
-    config = configuration()
-        
+    tokenizer = get_tokenizer()
+    config = get_configuration()
+
     encoded_input = tokenizer(text, return_tensors='pt')
     output = MODEL(**encoded_input)
     scores = output[0][0].detach().numpy()
