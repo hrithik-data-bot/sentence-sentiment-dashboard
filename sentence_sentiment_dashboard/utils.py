@@ -8,6 +8,7 @@ from transformers import AutoModelForSequenceClassification
 from transformers import TFAutoModelForSequenceClassification
 
 MODEL_PATH = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+MODEL = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
 
 
 def tokenizer():
