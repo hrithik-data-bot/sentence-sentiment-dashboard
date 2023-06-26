@@ -14,6 +14,8 @@ app.layout = html.Div(id='outer-div', children=[html.H2('Please Enter the Senten
                                                                                   'border': 'Solid 5px Black',
                                                                                   'border-radius': '5px'}),
                                                 html.Hr(),
+                                                html.Button('PREDICT', id='btn-nclicks-1'),
+                                                html.Hr(),
                                                 html.Div(id='graphs-div', children=[dcc.Graph(id='gauge',
                                                                                               style={'float': 'left',
                                                                                                      'align': 'left',
