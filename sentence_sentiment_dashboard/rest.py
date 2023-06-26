@@ -18,12 +18,16 @@ app.layout = html.Div(id='outer-div', children=[html.H2('Please Enter the Senten
                                                                                               style={'float': 'left',
                                                                                                      'align': 'left',
                                                                                                      'width': '48%',
-                                                                                                     'border': 'Solid 5px Black'}),
+                                                                                                     'border': 'Solid 5px Black',
+                                                                                                     'border-radius': '5px'}),
                                                                                     dcc.Graph(id='bar',
                                                                                               style={'float': 'right',
                                                                                                      'align': 'right',
                                                                                                      'width': '48%',
-                                                                                                     'border': 'Solid 5px Black'})])])
+                                                                                                     'border': 'Solid 5px Black',
+                                                                                                     'border-radius': '5px'})
+                                                                                    ])
+                                                ])
 
 if __name__ == "__main__":
     app.run_server(debug=True)
