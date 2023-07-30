@@ -7,6 +7,9 @@ from dash import html, dcc, Input, Output, State
 import numpy as np
 from plotly import graph_objs as go
 from model_utils_nltk import prediction_pipeline
+from logger import init_logging
+
+LOGGER = init_logging()
 
 GAUGE_STYLE = {'float':'left', 'align':'left', 'width':'48%',
                'border':'Solid 5px Black', 'border-radius':'5px'}
@@ -43,9 +46,13 @@ def create_gauge(n_clicks, sentence: str): # pylint: disable=unused-argument
 
     """create a gauge chart"""
 
+    LOGGER.info('Received Sentence:- %s', sentence)
     prediction_data = prediction_pipeline(text=sentence)
+    LOGGER.info('Model Predictions:- %s', prediction_data)
     labels = np.array(list(prediction_data.keys()))
+    LOGGER.info('Labels:- %s', labels)
     scores = np.array(list(prediction_data.values()))
+    LOGGER.info('Scores:- %s', scores)
     gauge_max_values = np.argmax(scores)
     gauge_label, gauge_value = labels[gauge_max_values].upper(), scores[gauge_max_values]
     if gauge_label == 'POS':
@@ -61,6 +68,7 @@ def create_gauge(n_clicks, sentence: str): # pylint: disable=unused-argument
                                  gauge={'axis': {'range': [0, 1]},
                                         'bar': {'color': color},
                                         'bgcolor':'black'}))
+    LOGGER.info('Created the Gauge Chart.')
     return fig
 
 
@@ -70,15 +78,19 @@ def create_gauge(n_clicks, sentence: str): # pylint: disable=unused-argument
 def create_bar(n_clicks, sentence: str): # pylint: disable=unused-argument
     """create a bar chart"""
 
+    LOGGER.info('Received Sentence:- %s', sentence)
     prediction_data = prediction_pipeline(text=sentence)
+    LOGGER.info('Model Predictions:- %s', prediction_data)
     labels = np.array(list(prediction_data.keys()))
+    LOGGER.info('Labels:- %s', labels)
     scores = np.array(list(prediction_data.values()))
-
+    LOGGER.info('Scores:- %s', scores)
     data = go.Bar(x=labels, y=scores)
     layout = go.Layout(title='Sentiment Score Bar Plot',
                        xaxis=dict(title='Sentiment'),
                        yaxis=dict(title='Score'))
     fig = go.Figure(data=[data], layout=layout)
+    LOGGER.info('Created the Bar Chart.')
     return fig
 
 if __name__ == "__main__":
