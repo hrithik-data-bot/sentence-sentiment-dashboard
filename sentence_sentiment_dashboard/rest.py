@@ -1,6 +1,7 @@
 """dashboard api"""
 
 # pylint: disable=import-error
+
 import dash
 from dash import html, dcc, Input, Output, State
 import numpy as np
@@ -38,7 +39,8 @@ app.layout = html.Div(id='outer-div', children=[html.H2('Please Enter the Senten
 @app.callback(Output('gauge', 'figure'),
               Input('predict-button', 'n_clicks'),
               State('text-input', 'value'))
-def create_gauge(n_clicks, sentence: str):
+def create_gauge(n_clicks, sentence: str): # pylint: disable=unused-argument
+
     """create a gauge chart"""
 
     prediction_data = prediction_pipeline(text=sentence)
