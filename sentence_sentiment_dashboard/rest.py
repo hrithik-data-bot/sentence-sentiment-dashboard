@@ -59,5 +59,20 @@ def create_gauge(n_clicks, sentence: str): # pylint: disable=unused-argument
     return fig
 
 
+@app.callback(Output('bar', 'figure'),
+              Input('predict-button', 'n_clicks'),
+              State('text-input', 'value'))
+def create_bar(n_clicks, sentence: str): # pylint: disable=unused-argument
+    """create a bar chart"""
+
+    prediction_data = prediction_pipeline(text=sentence)
+    labels = np.array(list(prediction_data.keys()))
+    scores = np.array(list(prediction_data.values()))
+
+    data = go.Bar(x=labels, y=scores)
+    layout = go.Layout(title='Sentiment Score Bar Plot', xaxis=dict(title='Sentiment'), yaxis=dict(title='Score'))
+    fig = go.Figure(data=[data], layout=layout)
+    return fig
+
 if __name__ == "__main__":
     app.run_server(debug=True)
